@@ -11,7 +11,8 @@ Prerequisites:
 * installation of solr
 
 Running the app:
-
+* update database.yml with credentials
+* `rails db:create`
 * `rails db:migrate` 
 
-* ` rails s `
+* `foreman`
