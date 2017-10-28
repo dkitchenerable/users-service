@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   include BCrypt
 
-  after_commit :queue_account_service
   after_validation :encrypt_password
   has_secure_token :key
+  after_commit :queue_account_key_job
 
   validates :email, presence: true, uniqueness: true, length: { in: 1..200 }
   validates :phone_number, presence: true, uniqueness: true, length: { in: 1..20 }, case_sensitive: false
@@ -17,9 +17,7 @@ class User < ApplicationRecord
     self.password = Password.create(password)
   end
 
-  private
-
-  def queue_account_service
-    #call AccountServiceWorker
+  def queue_account_key_job
+    AccountKeyJob.perform_later(self.id)
   end
 end

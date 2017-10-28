@@ -9,9 +9,9 @@ gem 'rails', '~> 5.0.6'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 gem 'active_model_serializers', '~> 0.10.0'
-# gem 'jbuilder', '~> 2.5'
-# gem 'redis', '~> 3.0'
 gem 'bcrypt', '~> 3.1.7'
+gem 'sidekiq'
+gem 'foreman'
 
 group :development, :test do
   gem 'byebug', platform: :mri

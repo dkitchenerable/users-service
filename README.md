@@ -8,11 +8,14 @@ Prerequisites:
 
 * Rails 5.0 >=
 
-* installation of solr
+* instance of solr
+
+* `brew install redis`
 
 Running the app:
-* update database.yml with credentials
+*  update database.yml with credentials
+*  copy .env.sample to .env and update
 * `rails db:create`
 * `rails db:migrate` 
 
-* `foreman`
+* `foreman start`
