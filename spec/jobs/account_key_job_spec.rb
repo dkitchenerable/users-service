@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 RSpec.describe AccountKeyJob, type: :job do

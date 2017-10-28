@@ -1,24 +1,9 @@
 class V1::UsersController < ApplicationController
   def index
-    # refactor out to service
-    @results = User.all
-    if @results.empty?
-      render json: @results
-    else
-      render json: { users: @results }
-    end
+    render json: UserFetchService.new(params).results
   end
 
   def create
-    new_user = User.create(user_params)
-    if new_user.persisted?
-    else
-    end
+    render json: UserBuilder.new(params).run
   end
-
-  private
-
-  def user_params
-  end
-
 end
