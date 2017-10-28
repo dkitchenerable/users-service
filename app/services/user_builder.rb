@@ -4,7 +4,7 @@ class UserBuilder
   end
 
   def run
-    return { error: "Invalid params" } if invalid_params?
+    return { error: "only valid params: email, phone_number, full_name, password, metadata" } if !valid_params?
     new_user = User.create(@post_params)   
     new_user.persisted ? new_user : { errors: new_user.errors }
   end
@@ -14,8 +14,8 @@ class UserBuilder
 
   attr_reader :post_params
 
-  def invalid_params?
-    params.permit(:email, :phone_number, :full_name, :password, :metadata)
-    params.permitted?
+  def valid_params?
+    permitted = post_params.permit(:email, :phone_number, :full_name, :password, :metadata)
+    permitted.permitted?
   end
 end

@@ -1,10 +1,11 @@
 class UserFetchService
 
   def initialize(params)
-    @query_params
+    @query_params = params
   end
 
   def run
+    return { error: "Query is only allowed param" } if !valid_params?
     results = User.all
     results.empty? ? results : { users: results }
   end
@@ -14,8 +15,8 @@ class UserFetchService
 
   attr_reader :query_params
 
-  def invalid_params?
-    params.permit(:query)
-    params.permitted?
+  def valid_params?
+    permitted = query_params.permit(:query)
+    permitted.permitted?
   end  
 end

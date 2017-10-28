@@ -4,6 +4,6 @@ class V1::UsersController < ApplicationController
   end
 
   def create
-    render json: UserBuilder.new(params).run
+    render json: UserBuilder.new(params).results
   end
 end
