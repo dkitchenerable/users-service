@@ -12,8 +12,10 @@ gem 'active_model_serializers', '~> 0.10.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'sidekiq'
 gem 'foreman'
+gem 'sunspot_rails'
 
 group :development, :test do
+  gem 'sunspot_solr'
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~>3.5'
 end
@@ -29,6 +31,7 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
   gem 'database_cleaner'
+  gem 'sunspot_test'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

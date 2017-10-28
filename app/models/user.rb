@@ -20,4 +20,8 @@ class User < ApplicationRecord
   def queue_account_key_job
     AccountKeyJob.perform_later(self.id)
   end
+
+  searchable do
+    text :metadata, :email, :phone_number, :full_name, :password
+  end
 end
