@@ -10,7 +10,7 @@ RSpec.describe 'Users', type: :request do
 
       it 'returns empty json' do
         expect(get_json).to be_empty
-      end      
+      end
     end
 
     context "multiple users in database" do
@@ -28,35 +28,22 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
-=begin
   describe 'GET /v1/users?query' do
-
-    context 'user does not match query' do
+    context 'user matches query' do
+      let!(:user) { create(:user, email: "foo_bar@email.com" ) }
+      before { Sunspot.commit }
       before { get "/v1/users?query=foo_bar" }
-      let(:user) { create(:user) }
-      it 'returns user ' do
-        expect(json).not_to be_empty
-        expect(json['id']).to eq(user_id)
+
+      it 'returns user' do
+        expect(get_json).not_to be_empty
+        expect(get_json["users"][0]["id"]).to eq(user_id)
       end
 
       it 'returns status code 200' do
         expect(response).to have_http_status(200)
       end
     end
-
-    context 'when the record does not exist' do
-      let(:user_id) { 0 }
-
-      it '404' do
-        expect(response).to have_http_status(404)
-      end
-
-      it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find User/)
-      end
-    end
   end
-=end
 
   private
 
