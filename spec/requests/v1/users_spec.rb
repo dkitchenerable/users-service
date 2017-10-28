@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   describe 'GET /v1/users' do
-    before { get '/v1/users' }
     context "no users in database" do
+      before { get '/v1/users' }
       it 'returns status code 200' do
         expect(response).to have_http_status(200)
       end
@@ -13,12 +13,13 @@ RSpec.describe 'Users', type: :request do
       end      
     end
 
-    context "users in database" do
-      let(:users) { create_list(:user, 10) }
+    context "multiple users in database" do
+      let!(:users) { create_list(:user, 10) }
+      before { get '/v1/users' }
 
       it 'returns all users' do
         expect(get_json).not_to be_empty
-        expect(get_json.size).to eq(10)
+        expect(get_json["users"].size).to eq(10)
       end
 
       it 'returns status code 200' do
@@ -31,7 +32,7 @@ RSpec.describe 'Users', type: :request do
   describe 'GET /v1/users?query' do
 
     context 'user does not match query' do
-      before { get "/v1/users/#{user_id}" }
+      before { get "/v1/users?query=foo_bar" }
       let(:user) { create(:user) }
       it 'returns user ' do
         expect(json).not_to be_empty
@@ -56,6 +57,7 @@ RSpec.describe 'Users', type: :request do
     end
   end
 =end
+
   private
 
   def get_json
