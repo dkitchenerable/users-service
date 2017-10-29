@@ -13,11 +13,13 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'sidekiq'
 gem 'foreman'
 gem 'sunspot_rails'
+gem 'httparty'
 
 group :development, :test do
   gem 'sunspot_solr'
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~>3.5'
+  gem 'vcr'
 end
 
 group :development do
@@ -32,6 +34,7 @@ group :test do
   gem 'faker'
   gem 'database_cleaner'
   gem 'sunspot_test'
+  gem 'webmock'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

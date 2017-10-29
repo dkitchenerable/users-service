@@ -1,7 +1,7 @@
 class AccountKeyJob < ActiveJob::Base
   queue_as :default
 
-  rescue_from(AccountApiUnavailable) do
+  rescue_from(AccountKeyService::AccountApiUnavailable) do
     retry_job wait: 5.minutes, queue: :default
   end
 

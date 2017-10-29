@@ -15,7 +15,7 @@ RSpec.describe AccountKeyJob, type: :job do
   end
 
   it 'handles invalid id' do
-    allow(AccountKeyService).to receive(:new).and_raise(AccountApiUnavailable)
+    allow(AccountKeyService).to receive(:new).and_raise(AccountKeyService::AccountApiUnavailable)
 
     perform_enqueued_jobs do
       expect_any_instance_of(AccountKeyJob)

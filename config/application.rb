@@ -27,5 +27,6 @@ module UsersService
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.active_job.queue_adapter = :sidekiq
+    ENV["API_SERVICE_ENDPOINT"] = "https://account-key-service.herokuapp.com/v1/account"
   end
 end
