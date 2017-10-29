@@ -14,11 +14,7 @@ class UserFetchService
   attr_reader :query
 
   def search
-    begin 
-      User.search { fulltext query }.results
-    rescue Sunspot::IllegalSearchError
-      raise MalformedError
-    end
+    Search.new(query).results
   end
 
   def serialize(results)

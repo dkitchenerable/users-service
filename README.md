@@ -19,3 +19,6 @@ Running the app:
 * `rails db:migrate`
 
 * `foreman start`
+
+Running tests:
+* `rake`

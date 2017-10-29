@@ -29,18 +29,19 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'GET /v1/users?query' do
-    context 'user matches query' do
-      let!(:user) { create(:user, email: "foo_bar@email.com" ) }
-      before { Sunspot.commit }
+    context 'valid query' do
       before { get "/v1/users?query=foo_bar" }
-
-      it 'returns user' do
-        expect(get_json).not_to be_empty
-        expect(get_json["users"][0]["id"]).to eq(user_id)
-      end
 
       it 'returns status code 200' do
         expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'malformed error during search' do
+      it 'returns status code 422' do
+        allow(User).to receive(:search).and_raise(MalformedError)
+        get "/v1/users?query=foo_bar"
+        expect(response).to have_http_status(422)
       end
     end
   end
@@ -72,7 +73,7 @@ RSpec.describe 'Users', type: :request do
         expect(response).to have_http_status(422)
       end
 
-      it 'returns a ' do
+      it 'returns errors' do
         expect(get_json["errors"].size).to eq(3)
         expect(get_json["errors"]).to_not be_empty
         expect(get_json["errors"]).to include("Email can't be blank")
