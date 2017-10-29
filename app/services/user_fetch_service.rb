@@ -5,7 +5,7 @@ class UserFetchService
   end
 
   def run
-    results = query.nil? ? User.all : User.search { fulltext query }.results
+    results = query.nil? ? User.all : search
     results.empty? ? results : { users: results }
   end
   alias results run
@@ -13,4 +13,9 @@ class UserFetchService
   private
 
   attr_reader :query
+
+  def search
+    User.search { fulltext query }.results      
+  end
+
 end

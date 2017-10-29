@@ -18,7 +18,7 @@ class User < ApplicationRecord
   end
 
   def queue_account_key_job
-    AccountKeyJob.perform_later(self.id)
+    AccountKeyJob.perform_later(id: self.id)
   end
 
   searchable do

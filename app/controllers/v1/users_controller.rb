@@ -1,7 +1,7 @@
 class V1::UsersController < ApplicationController
   def index
     results = UserFetchService.new(query_params).results
-    render json: results,  status: 200
+    render json: results, status: 200
   end
 
   def create
