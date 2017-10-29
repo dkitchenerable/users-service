@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe AccountKeyJob, type: :job do
   include ActiveJob::TestHelper
 
-  subject(:job) { described_class.perform_later(1) }
+  subject(:job) { described_class.perform_later(id: 1) }
 
   it 'queues the job' do
     expect { job }
