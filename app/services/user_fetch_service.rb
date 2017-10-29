@@ -1,5 +1,4 @@
 class UserFetchService
-
   def initialize(params)
     @query = params[:query]
   end
@@ -15,11 +14,14 @@ class UserFetchService
   attr_reader :query
 
   def search
-    User.search { fulltext query }.results
+    begin 
+      User.search { fulltext query }.results
+    rescue Sunspot::IllegalSearchError
+      raise MalformedError
+    end
   end
 
   def serialize(results)
     ActiveModel::Serializer::CollectionSerializer.new(results, each_serializer: UserSerializer)
   end
-
 end

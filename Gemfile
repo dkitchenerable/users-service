@@ -14,6 +14,7 @@ gem 'sidekiq'
 gem 'foreman'
 gem 'sunspot_rails'
 gem 'httparty'
+gem 'redis-rails'
 
 group :development, :test do
   gem 'sunspot_solr'
