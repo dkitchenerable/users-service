@@ -5,9 +5,9 @@ class User < ApplicationRecord
   has_secure_token :key
   after_commit :queue_account_key_job
 
-  validates :email, presence: true, uniqueness: true, length: { in: 1..200 }
-  validates :phone_number, presence: true, uniqueness: true, length: { in: 1..20 }, case_sensitive: false
-  validates :password, presence: true, length: { in: 1..100 }
+  validates :email, presence: true, uniqueness: true, length: { maximum: 200 }
+  validates :phone_number, presence: true, uniqueness: true, length: { maximum: 20 }, case_sensitive: false
+  validates :password, presence: true, length: { maximum: 100 }
 
   validates :full_name, length: { maximum: 200 }
   validates :account_key, uniqueness: true, allow_nil: true, length: { maximum: 100 }

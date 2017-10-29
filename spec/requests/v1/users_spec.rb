@@ -45,7 +45,52 @@ RSpec.describe 'Users', type: :request do
     end
   end
 
+  describe 'POST /v1/users' do
+    let(:post_params) { generate_params }
+    let(:insufficient_params) { post_params.delete(:email) }
+
+    context 'valid creation' do
+      before { post '/v1/users', params: post_params}
+
+      it 'creates a user' do
+        expect(get_json['email']).to eq(post_params[:email])
+        expect(get_json['phone_number']).to eq(post_params[:phone_number])
+        expect(get_json['key']).to_not be_empty
+        expect(get_json['account_key']).to be_nil
+        expect(get_json['metadata']).to be_nil
+      end
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'when the params are insufficient' do
+      before { post '/v1/users', params: insufficient_params }
+
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a ' do
+        expect(get_json["errors"].size).to eq(3)
+        expect(get_json["errors"]).to_not be_empty
+        expect(get_json["errors"]).to include("Email can't be blank")
+        expect(get_json["errors"]).to include("Phone number can't be blank")
+        expect(get_json["errors"]).to include("Password can't be blank")
+      end
+    end
+  end
+
   private
+
+  def generate_params
+    {
+      email: Faker::Internet.email,
+      password: Faker::Number.number(10),
+      phone_number:  Faker::Internet.password(10)
+    }
+  end
 
   def get_json
     JSON.parse(response.body)

@@ -1,7 +1,6 @@
 class UserFetchService
 
   def initialize(params)
-    byebug
     @query = params[:query]
   end
 
