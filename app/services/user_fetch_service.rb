@@ -6,7 +6,7 @@ class UserFetchService
 
   def run
     results = query.nil? ? User.all : search
-    results.empty? ? results : { users: results }
+    results.empty? ? results : { users: serialize(results)}
   end
   alias results run
 
@@ -15,7 +15,11 @@ class UserFetchService
   attr_reader :query
 
   def search
-    User.search { fulltext query }.results      
+    User.search { fulltext query }.results
+  end
+
+  def serialize(results)
+    ActiveModel::Serializer::CollectionSerializer.new(results, each_serializer: UserSerializer)
   end
 
 end
