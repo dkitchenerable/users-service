@@ -34,7 +34,6 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'faker'
   gem 'database_cleaner'
-  gem 'sunspot_test'
   gem 'webmock'
 end
 
