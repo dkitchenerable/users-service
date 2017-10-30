@@ -1,6 +1,6 @@
 # README
 
-A simple, searchable api service for a hypothetical set of users.
+A simple, restful api service allowing search and creation of users.
 
 Prerequisites:
 
@@ -8,7 +8,7 @@ Prerequisites:
 
 * Rails 5.0 >=
 
-* JRE for solr
+* Java installed (for solr)
 
 * `brew install redis`
 
